@@ -1,0 +1,265 @@
+/* SwayNC - Carbon Black Theme */
+
+@define-color bg-deep #0a0a0a;
+@define-color bg-dark #121212;
+@define-color bg-card #1a1a1a;
+@define-color bg-elevated #242424;
+@define-color border #2a2a2a;
+@define-color text-muted #666666;
+@define-color text-secondary #888888;
+@define-color text-primary #e0e0e0;
+@define-color accent #3d3d3d;
+@define-color urgent #cc6666;
+
+* {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 13px;
+}
+
+.control-center {
+    background: linear-gradient(180deg, @bg-dark 0%, @bg-deep 100%);
+    border: 1px solid @border;
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.control-center .notification-row {
+    margin: 0;
+    padding: 0;
+}
+
+.control-center .notification-row .notification-background {
+    margin: 6px 0;
+    padding: 0;
+    background: transparent;
+}
+
+.notification {
+    background: linear-gradient(135deg, @bg-card 0%, #161616 100%);
+    border: 1px solid @border;
+    border-radius: 10px;
+    margin: 0;
+    padding: 0;
+}
+
+.notification .notification-content {
+    padding: 12px;
+}
+
+.notification .notification-default-action {
+    border-radius: 10px;
+}
+
+.notification .notification-default-action:hover {
+    background: linear-gradient(135deg, @bg-elevated 0%, @bg-card 100%);
+}
+
+.notification .summary {
+    color: @text-primary;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.notification .body {
+    color: @text-secondary;
+    font-size: 12px;
+}
+
+.notification .time {
+    color: @text-muted;
+    font-size: 11px;
+}
+
+.notification .image {
+    border-radius: 8px;
+    margin-right: 12px;
+}
+
+.notification .close-button {
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: @text-muted;
+    min-width: 24px;
+    min-height: 24px;
+    padding: 0;
+    margin: 4px;
+}
+
+.notification .close-button:hover {
+    background: @bg-elevated;
+    color: @text-primary;
+}
+
+.notification.critical {
+    border-color: rgba(204, 102, 102, 0.3);
+}
+
+.notification.critical .summary {
+    color: @urgent;
+}
+
+/* Notification popup (floating) */
+.floating-notifications {
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.floating-notifications .notification {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+/* Control Center Widgets */
+.widget-title {
+    margin: 0 0 8px 0;
+    padding: 8px 12px;
+    background: linear-gradient(135deg, @bg-card 0%, #161616 100%);
+    border: 1px solid @border;
+    border-radius: 10px;
+}
+
+.widget-title > label {
+    color: @text-primary;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.widget-title > button {
+    background: @bg-elevated;
+    border: 1px solid @border;
+    border-radius: 6px;
+    color: @text-secondary;
+    padding: 4px 12px;
+    font-size: 11px;
+}
+
+.widget-title > button:hover {
+    background: @accent;
+    color: @text-primary;
+}
+
+.widget-dnd {
+    margin: 8px 0;
+    padding: 8px 12px;
+    background: linear-gradient(135deg, @bg-card 0%, #161616 100%);
+    border: 1px solid @border;
+    border-radius: 10px;
+}
+
+.widget-dnd > switch {
+    background: @bg-elevated;
+    border: 1px solid @border;
+    border-radius: 12px;
+}
+
+.widget-dnd > switch:checked {
+    background: linear-gradient(135deg, @accent 0%, #333333 100%);
+}
+
+.widget-dnd > switch slider {
+    background: @text-primary;
+    border-radius: 10px;
+    min-width: 16px;
+    min-height: 16px;
+}
+
+.widget-mpris {
+    margin: 8px 0;
+    padding: 12px;
+    background: linear-gradient(135deg, @bg-card 0%, #161616 100%);
+    border: 1px solid @border;
+    border-radius: 10px;
+}
+
+.widget-mpris .widget-mpris-title {
+    color: @text-primary;
+    font-weight: 600;
+}
+
+.widget-mpris .widget-mpris-subtitle {
+    color: @text-secondary;
+}
+
+.widget-mpris .widget-mpris-player {
+    margin: 8px 0 0 0;
+}
+
+.widget-mpris button {
+    background: @bg-elevated;
+    border: 1px solid @border;
+    border-radius: 50%;
+    color: @text-secondary;
+    min-width: 32px;
+    min-height: 32px;
+    margin: 0 4px;
+}
+
+.widget-mpris button:hover {
+    background: @accent;
+    color: @text-primary;
+}
+
+.widget-volume {
+    margin: 8px 0;
+    padding: 8px 12px;
+    background: linear-gradient(135deg, @bg-card 0%, #161616 100%);
+    border: 1px solid @border;
+    border-radius: 10px;
+}
+
+.widget-volume scale trough {
+    background: @bg-deep;
+    border-radius: 4px;
+    min-height: 6px;
+}
+
+.widget-volume scale highlight {
+    background: linear-gradient(90deg, @accent 0%, #4a4a4a 100%);
+    border-radius: 4px;
+}
+
+.widget-volume scale slider {
+    background: @text-primary;
+    border-radius: 50%;
+    min-width: 14px;
+    min-height: 14px;
+}
+
+.widget-buttons-grid {
+    margin: 8px 0;
+    padding: 8px;
+    background: linear-gradient(135deg, @bg-card 0%, #161616 100%);
+    border: 1px solid @border;
+    border-radius: 10px;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button {
+    background: @bg-elevated;
+    border: 1px solid @border;
+    border-radius: 8px;
+    color: @text-secondary;
+    min-width: 48px;
+    min-height: 36px;
+    margin: 4px;
+    font-size: 16px;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button:hover {
+    background: linear-gradient(135deg, @accent 0%, #333333 100%);
+    color: @text-primary;
+}
+
+/* Scrollbar */
+scrollbar {
+    background: transparent;
+}
+
+scrollbar slider {
+    background: @border;
+    border-radius: 4px;
+    min-width: 6px;
+}
+
+scrollbar slider:hover {
+    background: @accent;
+}

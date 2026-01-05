@@ -1,0 +1,96 @@
+# Alacritty - Carbon Black Theme
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+padding = { x = 12, y = 12 }
+decorations = "None"
+opacity = 0.95
+blur = true
+dynamic_padding = true
+
+[font]
+size = 11.0
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
+
+[font.bold]
+family = "JetBrainsMono Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "JetBrainsMono Nerd Font"
+style = "Italic"
+
+[cursor]
+style = { shape = "Beam", blinking = "On" }
+blink_interval = 500
+unfocused_hollow = true
+
+[colors]
+draw_bold_text_with_bright_colors = false
+
+[colors.primary]
+background = "#0a0a0a"
+foreground = "#e0e0e0"
+dim_foreground = "#888888"
+
+[colors.cursor]
+text = "#0a0a0a"
+cursor = "#e0e0e0"
+
+[colors.vi_mode_cursor]
+text = "#0a0a0a"
+cursor = "#4a4a4a"
+
+[colors.selection]
+text = "#e0e0e0"
+background = "#2a2a2a"
+
+[colors.search.matches]
+foreground = "#0a0a0a"
+background = "#666666"
+
+[colors.search.focused_match]
+foreground = "#0a0a0a"
+background = "#888888"
+
+[colors.normal]
+black   = "#0a0a0a"
+red     = "#cc6666"
+green   = "#a3be8c"
+yellow  = "#ebcb8b"
+blue    = "#81a1c1"
+magenta = "#b48ead"
+cyan    = "#88c0d0"
+white   = "#e0e0e0"
+
+[colors.bright]
+black   = "#4a4a4a"
+red     = "#d08770"
+green   = "#a3be8c"
+yellow  = "#ebcb8b"
+blue    = "#81a1c1"
+magenta = "#b48ead"
+cyan    = "#8fbcbb"
+white   = "#eceff4"
+
+[colors.dim]
+black   = "#1a1a1a"
+red     = "#94545d"
+green   = "#809575"
+yellow  = "#b29e75"
+blue    = "#68809a"
+magenta = "#8c738c"
+cyan    = "#6d96a5"
+white   = "#888888"
+
+[mouse]
+hide_when_typing = true
+
+[scrolling]
+history = 10000
+multiplier = 3

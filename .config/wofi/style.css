@@ -1,0 +1,83 @@
+/* Wofi - Carbon Black Theme */
+
+* {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 13px;
+}
+
+window {
+    margin: 0;
+    padding: 0;
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    background: linear-gradient(180deg, #121212 0%, #0a0a0a 100%);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+}
+
+#input {
+    margin: 12px;
+    padding: 10px 16px;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
+    color: #e0e0e0;
+    caret-color: #888888;
+}
+
+#input:focus {
+    border-color: #3d3d3d;
+    outline: none;
+}
+
+#input::placeholder {
+    color: #666666;
+}
+
+#inner-box {
+    margin: 0 12px 12px 12px;
+    padding: 0;
+    background: transparent;
+}
+
+#outer-box {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+}
+
+#scroll {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+}
+
+#text {
+    margin: 0;
+    padding: 0 8px;
+    color: #e0e0e0;
+}
+
+#text:selected {
+    color: #e0e0e0;
+}
+
+#entry {
+    margin: 2px 0;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: transparent;
+    transition: all 0.15s ease;
+}
+
+#entry:selected {
+    background: linear-gradient(135deg, #242424 0%, #1a1a1a 100%);
+    border: 1px solid #2a2a2a;
+}
+
+#entry:hover {
+    background: linear-gradient(135deg, #1e1e1e 0%, #181818 100%);
+}
+
+#img {
+    margin-right: 8px;
+}

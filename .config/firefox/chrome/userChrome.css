@@ -1,0 +1,240 @@
+/* Firefox - Carbon Black Theme */
+/* Требуется: about:config -> toolkit.legacyUserProfileCustomizations.stylesheets = true */
+
+:root {
+    --bg-deep: #0a0a0a;
+    --bg-dark: #121212;
+    --bg-card: #1a1a1a;
+    --bg-elevated: #242424;
+    --border: #2a2a2a;
+    --text-muted: #666666;
+    --text-secondary: #888888;
+    --text-primary: #e0e0e0;
+    --accent: #3d3d3d;
+    
+    --toolbar-bgcolor: var(--bg-dark) !important;
+    --toolbar-color: var(--text-primary) !important;
+    --lwt-toolbar-field-background-color: var(--bg-card) !important;
+    --lwt-toolbar-field-color: var(--text-primary) !important;
+    --lwt-toolbar-field-border-color: var(--border) !important;
+    --lwt-toolbar-field-focus: var(--bg-elevated) !important;
+    --arrowpanel-background: var(--bg-card) !important;
+    --arrowpanel-color: var(--text-primary) !important;
+    --arrowpanel-border-color: var(--border) !important;
+    --urlbar-box-bgcolor: var(--bg-card) !important;
+    --urlbar-box-hover-bgcolor: var(--bg-elevated) !important;
+}
+
+/* Main window background */
+#main-window,
+#browser,
+#navigator-toolbox {
+    background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-deep) 100%) !important;
+}
+
+/* Navigation bar */
+#nav-bar {
+    background: transparent !important;
+    border-bottom: 1px solid var(--border) !important;
+    padding: 4px 8px !important;
+}
+
+/* Tab bar */
+#titlebar,
+#TabsToolbar {
+    background: transparent !important;
+}
+
+.tabbrowser-tab {
+    margin: 4px 2px !important;
+    border-radius: 8px !important;
+    overflow: hidden;
+}
+
+.tabbrowser-tab .tab-background {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    margin-block: 0 !important;
+}
+
+.tabbrowser-tab:hover .tab-background {
+    background: var(--bg-elevated) !important;
+}
+
+.tabbrowser-tab[selected] .tab-background {
+    background: linear-gradient(135deg, var(--bg-elevated) 0%, var(--bg-card) 100%) !important;
+    border-color: var(--accent) !important;
+}
+
+.tabbrowser-tab .tab-text {
+    color: var(--text-secondary) !important;
+}
+
+.tabbrowser-tab[selected] .tab-text {
+    color: var(--text-primary) !important;
+}
+
+.tabbrowser-tab .tab-close-button {
+    fill: var(--text-muted) !important;
+    border-radius: 4px !important;
+}
+
+.tabbrowser-tab .tab-close-button:hover {
+    background: var(--accent) !important;
+    fill: var(--text-primary) !important;
+}
+
+/* URL bar */
+#urlbar {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+}
+
+#urlbar[focused] {
+    background: var(--bg-elevated) !important;
+    border-color: var(--accent) !important;
+}
+
+#urlbar-input {
+    color: var(--text-primary) !important;
+}
+
+#urlbar .urlbar-input-box::placeholder {
+    color: var(--text-muted) !important;
+}
+
+/* URL bar buttons */
+#urlbar-container .urlbar-icon,
+#urlbar-container .urlbar-icon-wrapper {
+    fill: var(--text-secondary) !important;
+}
+
+#urlbar-container .urlbar-icon:hover,
+#urlbar-container .urlbar-icon-wrapper:hover {
+    fill: var(--text-primary) !important;
+    background: var(--accent) !important;
+    border-radius: 4px !important;
+}
+
+/* Toolbar buttons */
+#nav-bar toolbarbutton {
+    fill: var(--text-secondary) !important;
+}
+
+#nav-bar toolbarbutton:hover {
+    fill: var(--text-primary) !important;
+    background: var(--bg-elevated) !important;
+    border-radius: 6px !important;
+}
+
+/* New tab button */
+#tabs-newtab-button,
+#new-tab-button {
+    fill: var(--text-secondary) !important;
+}
+
+#tabs-newtab-button:hover,
+#new-tab-button:hover {
+    fill: var(--text-primary) !important;
+    background: var(--bg-elevated) !important;
+    border-radius: 6px !important;
+}
+
+/* Bookmarks bar */
+#PersonalToolbar {
+    background: transparent !important;
+    border-bottom: 1px solid var(--border) !important;
+    padding: 4px 8px !important;
+}
+
+#PlacesToolbarItems .bookmark-item {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px !important;
+    padding: 4px 8px !important;
+    margin: 2px !important;
+    color: var(--text-secondary) !important;
+}
+
+#PlacesToolbarItems .bookmark-item:hover {
+    background: var(--bg-elevated) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Sidebar */
+#sidebar-box {
+    background: var(--bg-deep) !important;
+    border-right: 1px solid var(--border) !important;
+}
+
+#sidebar-header {
+    background: var(--bg-card) !important;
+    border-bottom: 1px solid var(--border) !important;
+}
+
+#sidebar {
+    background: var(--bg-deep) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Findbar */
+.findbar-container {
+    background: var(--bg-card) !important;
+    border-top: 1px solid var(--border) !important;
+}
+
+.findbar-textbox {
+    background: var(--bg-deep) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px !important;
+    color: var(--text-primary) !important;
+}
+
+/* Context menus */
+menupopup {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    padding: 4px !important;
+}
+
+menuitem,
+menu {
+    color: var(--text-secondary) !important;
+    border-radius: 4px !important;
+}
+
+menuitem:hover,
+menu:hover,
+menuitem[_moz-menuactive],
+menu[_moz-menuactive] {
+    background: var(--bg-elevated) !important;
+    color: var(--text-primary) !important;
+}
+
+menuseparator {
+    border-color: var(--border) !important;
+    margin: 4px 8px !important;
+}
+
+/* Scrollbars */
+* {
+    scrollbar-width: thin !important;
+    scrollbar-color: var(--accent) var(--bg-deep) !important;
+}
+
+/* Remove borders and separators */
+#navigator-toolbox::after {
+    display: none !important;
+}
+
+toolbarbutton::after {
+    display: none !important;
+}
+
+/* Minimal mode - hide titlebar buttons on maximized */
+#main-window[sizemode="maximized"] #titlebar-buttonbox-container {
+    margin-right: 4px !important;
+}
