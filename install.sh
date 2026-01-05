@@ -295,45 +295,68 @@ install_session() {
     log_step "Installing Hyprland session..."
     
     local session_file="$SCRIPT_DIR/.config/hypr/hyprland.desktop"
+    local launcher_script="$SCRIPT_DIR/.config/hypr/start-hyprland.sh"
     local wayland_sessions="/usr/share/wayland-sessions"
-    local xsessions="/usr/share/xsessions"
     
+    # Install launcher script with VM support
+    if [ -f "$launcher_script" ]; then
+        log_step "Installing Hyprland launcher script..."
+        sudo cp "$launcher_script" /usr/local/bin/start-hyprland
+        sudo chmod 755 /usr/local/bin/start-hyprland
+        log_info "Launcher installed to /usr/local/bin/start-hyprland"
+    else
+        # Create launcher script inline
+        log_step "Creating Hyprland launcher script..."
+        sudo tee /usr/local/bin/start-hyprland > /dev/null << 'LAUNCHER'
+#!/bin/bash
+# Hyprland launcher with VM/software rendering support
+
+detect_vm() {
+    systemd-detect-virt -q 2>/dev/null && return 0
+    grep -qi "hypervisor\|vmware\|virtualbox\|qemu\|kvm" /proc/cpuinfo 2>/dev/null && return 0
+    return 1
+}
+
+export XDG_SESSION_TYPE=wayland
+export XDG_SESSION_DESKTOP=Hyprland
+export XDG_CURRENT_DESKTOP=Hyprland
+export QT_QPA_PLATFORM=wayland
+export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+export GDK_BACKEND=wayland,x11
+export MOZ_ENABLE_WAYLAND=1
+
+if detect_vm; then
+    export WLR_RENDERER=pixman
+    export WLR_NO_HARDWARE_CURSORS=1
+    export LIBGL_ALWAYS_SOFTWARE=1
+    export WLR_RENDERER_ALLOW_SOFTWARE=1
+fi
+
+exec Hyprland "$@"
+LAUNCHER
+        sudo chmod 755 /usr/local/bin/start-hyprland
+        log_info "Launcher script created"
+    fi
+    
+    # Create session file if not exists
     if [ ! -f "$session_file" ]; then
         log_warn "Session file not found, creating..."
         cat > "/tmp/hyprland.desktop" << 'EOF'
 [Desktop Entry]
 Name=Hyprland
 Comment=An intelligent dynamic tiling Wayland compositor
-Exec=Hyprland
+Exec=/usr/local/bin/start-hyprland
 Type=Application
 DesktopNames=Hyprland
 EOF
         session_file="/tmp/hyprland.desktop"
     fi
     
-    # Check if Hyprland session already exists
-    if [ -f "$wayland_sessions/hyprland.desktop" ]; then
-        log_info "Hyprland session already installed"
-        return
-    fi
-    
-    # Try to install to wayland-sessions
-    if [ -d "$wayland_sessions" ]; then
-        log_step "Installing to $wayland_sessions..."
-        sudo cp "$session_file" "$wayland_sessions/hyprland.desktop"
-        sudo chmod 644 "$wayland_sessions/hyprland.desktop"
-        log_info "Session installed to wayland-sessions"
-    elif [ -d "$xsessions" ]; then
-        # Fallback to xsessions if wayland-sessions doesn't exist
-        log_step "Installing to $xsessions..."
-        sudo mkdir -p "$wayland_sessions"
-        sudo cp "$session_file" "$wayland_sessions/hyprland.desktop"
-        sudo chmod 644 "$wayland_sessions/hyprland.desktop"
-        log_info "Session installed to wayland-sessions (created)"
-    else
-        log_warn "Could not find session directory"
-        log_info "Manually copy hyprland.desktop to /usr/share/wayland-sessions/"
-    fi
+    # Install session file
+    sudo mkdir -p "$wayland_sessions"
+    sudo cp "$session_file" "$wayland_sessions/hyprland.desktop"
+    sudo chmod 644 "$wayland_sessions/hyprland.desktop"
+    log_info "Session installed to $wayland_sessions"
 }
 
 # Setup Firefox theme
