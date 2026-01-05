@@ -28,17 +28,17 @@ install_deps() {
     log_step "Installing build dependencies..."
     
     sudo apt update
+    
+    # Essential build tools first
+    sudo apt install -y build-essential cmake meson ninja-build pkg-config git gettext || {
+        log_error "Failed to install essential build tools"
+        exit 1
+    }
+    
+    # Wayland and graphics deps
     sudo apt install -y \
-        build-essential \
-        cmake \
-        meson \
-        ninja-build \
-        pkg-config \
-        git \
-        gettext \
         libwayland-dev \
         wayland-protocols \
-        libwlroots-dev \
         libxkbcommon-dev \
         libpixman-1-dev \
         libdrm-dev \
