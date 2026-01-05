@@ -399,6 +399,74 @@ EOF
     log_info "Session installed to $wayland_sessions"
 }
 
+# Install SDDM theme
+install_sddm_theme() {
+    log_step "Installing SDDM theme..."
+    
+    local sddm_theme_src="$SCRIPT_DIR/.config/sddm/themes/carbon-black"
+    local sddm_theme_dst="/usr/share/sddm/themes/carbon-black"
+    
+    if [ ! -d "$sddm_theme_src" ]; then
+        log_warn "SDDM theme not found in dotfiles"
+        return
+    fi
+    
+    # Copy theme
+    sudo mkdir -p "$sddm_theme_dst"
+    sudo cp -r "$sddm_theme_src/"* "$sddm_theme_dst/"
+    
+    # Create default background if not exists
+    if [ ! -f "$sddm_theme_dst/background.png" ]; then
+        # Create a simple dark gradient background
+        if command -v convert &> /dev/null; then
+            sudo convert -size 1920x1080 gradient:'#121212'-'#0a0a0a' "$sddm_theme_dst/background.png"
+        else
+            log_warn "ImageMagick not found, using placeholder background"
+        fi
+    fi
+    
+    # Configure SDDM to use theme
+    if [ -f "/etc/sddm.conf" ] || [ -d "/etc/sddm.conf.d" ]; then
+        sudo mkdir -p /etc/sddm.conf.d
+        sudo tee /etc/sddm.conf.d/theme.conf > /dev/null << 'EOF'
+[Theme]
+Current=carbon-black
+EOF
+        log_info "SDDM theme configured"
+    else
+        log_warn "SDDM config not found, theme installed but not activated"
+        log_info "Manually set theme in SDDM settings"
+    fi
+    
+    log_info "SDDM theme installed to $sddm_theme_dst"
+}
+
+# Install AnonSurf (Arch Linux)
+install_anonsurf() {
+    if [ "$DISTRO" != "arch" ]; then
+        return
+    fi
+    
+    if command -v anonsurf &> /dev/null; then
+        log_info "AnonSurf already installed"
+        return
+    fi
+    
+    echo ""
+    read -p "Install AnonSurf (Tor anonymity)? [y/N] " -n 1 -r
+    echo
+    
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        local build_script="$SCRIPT_DIR/scripts/build-anonsurf-arch.sh"
+        if [ -f "$build_script" ]; then
+            chmod +x "$build_script"
+            bash "$build_script"
+        else
+            log_warn "AnonSurf build script not found"
+        fi
+    fi
+}
+
 # Setup Firefox theme
 setup_firefox() {
     log_step "Setting up Firefox theme..."
@@ -512,7 +580,13 @@ main() {
     install_session
     echo ""
     
+    install_sddm_theme
+    echo ""
+    
     setup_firefox
+    echo ""
+    
+    install_anonsurf
     echo ""
     
     post_install

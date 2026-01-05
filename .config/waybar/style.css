@@ -140,5 +140,95 @@ tooltip label {
 }
 
 #custom-notification {
-    margin-right: 8px;
+    margin-right: 4px;
+}
+
+#custom-logo {
+    margin: 4px 8px 4px 4px;
+    padding: 0 12px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    color: #e0e0e0;
+    font-size: 16px;
+}
+
+#custom-logo:hover {
+    background: linear-gradient(135deg, #242424 0%, #1e1e1e 100%);
+}
+
+#custom-anonsurf {
+    margin: 4px 2px;
+    padding: 0 10px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    color: #888888;
+    font-size: 14px;
+}
+
+#custom-anonsurf.active {
+    background: linear-gradient(135deg, #1a2a1a 0%, #142014 100%);
+    border-color: #2a3d2a;
+    color: #a3be8c;
+}
+
+#custom-anonsurf.inactive {
+    color: #666666;
+}
+
+#custom-anonsurf:hover {
+    background: linear-gradient(135deg, #242424 0%, #1e1e1e 100%);
+    color: #e0e0e0;
+}
+
+#backlight {
+    margin: 4px 2px;
+    padding: 0 10px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    color: #888888;
+}
+
+#backlight:hover {
+    background: linear-gradient(135deg, #242424 0%, #1e1e1e 100%);
+    color: #e0e0e0;
+}
+
+#bluetooth {
+    margin: 4px 2px;
+    padding: 0 10px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    color: #888888;
+}
+
+#bluetooth.connected {
+    color: #81a1c1;
+}
+
+#bluetooth.disabled {
+    color: #666666;
+}
+
+#bluetooth:hover {
+    background: linear-gradient(135deg, #242424 0%, #1e1e1e 100%);
+    color: #e0e0e0;
+}
+
+#custom-power {
+    margin: 4px 4px 4px 2px;
+    padding: 0 12px;
+    background: linear-gradient(135deg, #2a1a1a 0%, #1a1414 100%);
+    border: 1px solid #3d2a2a;
+    border-radius: 8px;
+    color: #cc6666;
+    font-size: 14px;
+}
+
+#custom-power:hover {
+    background: linear-gradient(135deg, #3d2a2a 0%, #2a1a1a 100%);
+    color: #e0e0e0;
 }

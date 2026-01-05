@@ -1,0 +1,11 @@
+[SddmGreeterTheme]
+Name=Carbon Black
+Description=Carbon Black theme for SDDM - LoverDOT
+Author=nitzlover
+Version=1.0
+Website=https://github.com/nitzlover/LoverDOT
+License=MIT
+Type=sddm-theme
+MainScript=Main.qml
+ConfigFile=theme.conf
+TranslationsDirectory=translations
