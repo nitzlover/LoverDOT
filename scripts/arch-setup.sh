@@ -233,6 +233,53 @@ EOF
     log_info "Wallpaper configured"
 }
 
+# Setup VM support (software rendering)
+setup_vm_support() {
+    log_step "Checking for VM environment..."
+    
+    if systemd-detect-virt -q 2>/dev/null; then
+        log_warn "Virtual machine detected: $(systemd-detect-virt)"
+        log_step "Setting up software rendering..."
+        
+        # Create launcher script with VM support
+        sudo tee /usr/local/bin/start-hyprland > /dev/null << 'LAUNCHER'
+#!/bin/bash
+export XDG_SESSION_TYPE=wayland
+export XDG_SESSION_DESKTOP=Hyprland
+export XDG_CURRENT_DESKTOP=Hyprland
+export QT_QPA_PLATFORM=wayland
+export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+export GDK_BACKEND=wayland,x11
+export MOZ_ENABLE_WAYLAND=1
+
+# VM software rendering
+if systemd-detect-virt -q 2>/dev/null; then
+    export WLR_RENDERER=pixman
+    export WLR_NO_HARDWARE_CURSORS=1
+    export LIBGL_ALWAYS_SOFTWARE=1
+    export WLR_RENDERER_ALLOW_SOFTWARE=1
+fi
+
+exec Hyprland "$@"
+LAUNCHER
+        sudo chmod +x /usr/local/bin/start-hyprland
+        
+        # Update session file to use launcher
+        sudo tee /usr/share/wayland-sessions/hyprland.desktop > /dev/null << 'EOF'
+[Desktop Entry]
+Name=Hyprland
+Comment=Hyprland compositor (VM compatible)
+Exec=/usr/local/bin/start-hyprland
+Type=Application
+DesktopNames=Hyprland
+EOF
+        
+        log_info "VM support configured (pixman renderer)"
+    else
+        log_info "Bare metal detected, no VM fixes needed"
+    fi
+}
+
 # Final setup
 final_setup() {
     log_step "Final setup..."
@@ -300,6 +347,9 @@ main() {
     echo ""
     
     install_loverdot
+    echo ""
+    
+    setup_vm_support
     echo ""
     
     final_setup
