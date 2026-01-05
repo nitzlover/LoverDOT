@@ -218,23 +218,63 @@ install_deps() {
     log_info "Dependencies installed"
 }
 
-# Special handling for Hyprland on Parrot OS
+# Special handling for Hyprland on Parrot OS / Debian
 install_hyprland_parrot() {
-    if ! command -v hyprland &> /dev/null; then
-        log_warn "Hyprland not found in repos"
-        echo ""
-        echo "For Parrot OS, you may need to:"
-        echo "  1. Add the hyprland repo or build from source"
-        echo "  2. Or use the Debian Sid backports"
-        echo ""
-        echo "Quick install (if available):"
-        echo "  sudo apt install hyprland"
-        echo ""
-        read -p "Try to install hyprland from available repos? [y/N] " -n 1 -r
-        echo
-        if [[ $REPLY =~ ^[Yy]$ ]]; then
-            sudo apt install -y hyprland || log_error "Failed to install hyprland"
-        fi
+    if command -v Hyprland &> /dev/null; then
+        log_info "Hyprland already installed: $(Hyprland --version 2>/dev/null | head -1)"
+        return
+    fi
+    
+    log_warn "Hyprland not installed"
+    echo ""
+    echo "Options:"
+    echo "  1. Try apt install (may fail due to broken dependencies)"
+    echo "  2. Build from source (recommended for Parrot OS)"
+    echo "  3. Skip Hyprland installation"
+    echo ""
+    read -p "Choose option [1/2/3]: " -n 1 -r
+    echo
+    
+    case $REPLY in
+        1)
+            log_step "Trying apt install..."
+            if sudo apt install -y hyprland 2>/dev/null; then
+                log_info "Hyprland installed via apt"
+            else
+                log_error "apt install failed (broken dependencies)"
+                echo ""
+                read -p "Build from source instead? [Y/n] " -n 1 -r
+                echo
+                if [[ ! $REPLY =~ ^[Nn]$ ]]; then
+                    build_hyprland_from_source
+                fi
+            fi
+            ;;
+        2)
+            build_hyprland_from_source
+            ;;
+        3)
+            log_warn "Skipping Hyprland installation"
+            log_info "Run scripts/build-hyprland-debian.sh manually later"
+            ;;
+        *)
+            log_warn "Invalid option, skipping"
+            ;;
+    esac
+}
+
+# Build Hyprland from source
+build_hyprland_from_source() {
+    local build_script="$SCRIPT_DIR/scripts/build-hyprland-debian.sh"
+    
+    if [ -f "$build_script" ]; then
+        log_step "Running Hyprland build script..."
+        chmod +x "$build_script"
+        bash "$build_script"
+    else
+        log_error "Build script not found: $build_script"
+        echo "Clone the full repo and try again:"
+        echo "  git clone https://github.com/nitzlover/LoverDOT.git"
     fi
 }
 
