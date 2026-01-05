@@ -1,54 +1,52 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 38,
+    "height": 32,
     "spacing": 0,
-    "margin-top": 6,
-    "margin-left": 10,
-    "margin-right": 10,
+    "margin-top": 4,
+    "margin-left": 0,
+    "margin-right": 0,
     "reload_style_on_change": true,
 
     "modules-left": [
-        "custom/logo",
-        "hyprland/workspaces",
-        "hyprland/window"
+        "hyprland/workspaces"
     ],
 
     "modules-center": [
-        "clock"
+        "custom/island-left",
+        "clock",
+        "custom/island-right"
     ],
 
     "modules-right": [
         "tray",
-        "custom/anonsurf",
         "pulseaudio",
-        "backlight",
         "network",
-        "bluetooth",
-        "cpu",
-        "memory",
         "battery",
-        "custom/notification",
         "custom/power"
     ],
 
-    "custom/logo": {
-        "format": "󰣇",
-        "tooltip": false,
-        "on-click": "wofi --show drun"
+    "custom/island-left": {
+        "format": "",
+        "tooltip": false
+    },
+
+    "custom/island-right": {
+        "format": "",
+        "tooltip": false
     },
 
     "hyprland/workspaces": {
         "format": "{icon}",
         "format-icons": {
-            "1": "󰲠",
-            "2": "󰲢",
-            "3": "󰲤",
-            "4": "󰲦",
-            "5": "󰲨",
-            "6": "󰲪",
-            "urgent": "󰀨",
-            "default": "󰧞"
+            "1": "●",
+            "2": "●",
+            "3": "●",
+            "4": "●",
+            "5": "●",
+            "urgent": "○",
+            "default": "○",
+            "active": "●"
         },
         "on-click": "activate",
         "persistent-workspaces": {
@@ -56,51 +54,37 @@
         }
     },
 
-    "hyprland/window": {
-        "format": "{title}",
-        "max-length": 40,
-        "separate-outputs": true,
-        "rewrite": {
-            "(.*) — Mozilla Firefox": "󰈹 $1",
-            "(.*) - Alacritty": " $1",
-            "(.*)": "$1"
-        }
-    },
-
     "clock": {
         "format": "{:%H:%M}",
-        "format-alt": "{:%a, %d %b %Y}",
+        "format-alt": "{:%a %d %b}",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
         "calendar": {
             "mode": "month",
-            "weeks-pos": "left",
             "format": {
-                "months": "<span color='#e0e0e0'><b>{}</b></span>",
+                "months": "<span color='#ffffff'><b>{}</b></span>",
                 "days": "<span color='#888888'>{}</span>",
-                "weeks": "<span color='#666666'>W{}</span>",
-                "weekdays": "<span color='#666666'>{}</span>",
-                "today": "<span color='#e0e0e0'><b><u>{}</u></b></span>"
+                "today": "<span color='#ffffff'><b>{}</b></span>"
             }
         }
     },
 
     "tray": {
-        "icon-size": 16,
-        "spacing": 8
+        "icon-size": 14,
+        "spacing": 6
     },
 
     "pulseaudio": {
-        "format": "{icon} {volume}%",
+        "format": "{icon}",
         "format-muted": "󰖁",
         "format-icons": {
             "default": ["󰕿", "󰖀", "󰕾"]
         },
         "on-click": "pavucontrol",
-        "tooltip-format": "{desc}"
+        "tooltip-format": "{volume}%"
     },
 
     "network": {
-        "format-wifi": "󰤨 {signalStrength}%",
+        "format-wifi": "󰤨",
         "format-ethernet": "󰈀",
         "format-disconnected": "󰤭",
         "tooltip-format-wifi": "{essid} ({signalStrength}%)",
@@ -108,82 +92,21 @@
         "on-click": "nm-connection-editor"
     },
 
-    "cpu": {
-        "format": "󰻠 {usage}%",
-        "interval": 2,
-        "tooltip": true
-    },
-
-    "memory": {
-        "format": "󰍛 {percentage}%",
-        "interval": 2,
-        "tooltip-format": "{used:0.1f}G / {total:0.1f}G"
-    },
-
     "battery": {
         "states": {
             "warning": 30,
             "critical": 15
         },
-        "format": "{icon} {capacity}%",
-        "format-charging": "󰂄 {capacity}%",
-        "format-plugged": "󰂄 {capacity}%",
-        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-        "tooltip-format": "{timeTo}"
-    },
-
-    "custom/notification": {
-        "tooltip": false,
         "format": "{icon}",
-        "format-icons": {
-            "notification": "󰂚<span foreground='#cc6666'><sup></sup></span>",
-            "none": "󰂜",
-            "dnd-notification": "󰂛<span foreground='#cc6666'><sup></sup></span>",
-            "dnd-none": "󰂛",
-            "inhibited-notification": "󰂚<span foreground='#cc6666'><sup></sup></span>",
-            "inhibited-none": "󰂜",
-            "dnd-inhibited-notification": "󰂛<span foreground='#cc6666'><sup></sup></span>",
-            "dnd-inhibited-none": "󰂛"
-        },
-        "return-type": "json",
-        "exec-if": "which swaync-client",
-        "exec": "swaync-client -swb",
-        "on-click": "swaync-client -t -sw",
-        "on-click-right": "swaync-client -d -sw",
-        "escape": true
-    },
-
-    "custom/anonsurf": {
-        "format": "{}",
-        "return-type": "json",
-        "interval": 5,
-        "exec": "~/.config/waybar/scripts/anonsurf-status.sh",
-        "on-click": "~/.config/hypr/scripts/anonsurf-toggle.sh",
-        "tooltip": true
-    },
-
-    "backlight": {
-        "format": "{icon} {percent}%",
-        "format-icons": ["󰃞", "󰃟", "󰃠"],
-        "tooltip-format": "Brightness: {percent}%",
-        "on-scroll-up": "brightnessctl set 5%+",
-        "on-scroll-down": "brightnessctl set 5%-"
-    },
-
-    "bluetooth": {
-        "format": "󰂯",
-        "format-disabled": "󰂲",
-        "format-connected": "󰂱 {num_connections}",
-        "tooltip-format": "{controller_alias}\n{num_connections} connected",
-        "tooltip-format-connected": "{controller_alias}\n{num_connections} connected\n\n{device_enumerate}",
-        "tooltip-format-enumerate-connected": "{device_alias}",
-        "on-click": "blueman-manager"
+        "format-charging": "󰂄",
+        "format-plugged": "󰂄",
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "tooltip-format": "{capacity}% - {timeTo}"
     },
 
     "custom/power": {
         "format": "󰐥",
         "tooltip": false,
-        "on-click": "wlogout",
-        "on-click-right": "hyprlock"
+        "on-click": "wlogout"
     }
 }
