@@ -290,6 +290,52 @@ install_configs() {
     log_info "Configs installed to: ${CYAN}$CONFIG_DIR${NC}"
 }
 
+# Install Hyprland session for display manager (SDDM, GDM, LightDM)
+install_session() {
+    log_step "Installing Hyprland session..."
+    
+    local session_file="$SCRIPT_DIR/.config/hypr/hyprland.desktop"
+    local wayland_sessions="/usr/share/wayland-sessions"
+    local xsessions="/usr/share/xsessions"
+    
+    if [ ! -f "$session_file" ]; then
+        log_warn "Session file not found, creating..."
+        cat > "/tmp/hyprland.desktop" << 'EOF'
+[Desktop Entry]
+Name=Hyprland
+Comment=An intelligent dynamic tiling Wayland compositor
+Exec=Hyprland
+Type=Application
+DesktopNames=Hyprland
+EOF
+        session_file="/tmp/hyprland.desktop"
+    fi
+    
+    # Check if Hyprland session already exists
+    if [ -f "$wayland_sessions/hyprland.desktop" ]; then
+        log_info "Hyprland session already installed"
+        return
+    fi
+    
+    # Try to install to wayland-sessions
+    if [ -d "$wayland_sessions" ]; then
+        log_step "Installing to $wayland_sessions..."
+        sudo cp "$session_file" "$wayland_sessions/hyprland.desktop"
+        sudo chmod 644 "$wayland_sessions/hyprland.desktop"
+        log_info "Session installed to wayland-sessions"
+    elif [ -d "$xsessions" ]; then
+        # Fallback to xsessions if wayland-sessions doesn't exist
+        log_step "Installing to $xsessions..."
+        sudo mkdir -p "$wayland_sessions"
+        sudo cp "$session_file" "$wayland_sessions/hyprland.desktop"
+        sudo chmod 644 "$wayland_sessions/hyprland.desktop"
+        log_info "Session installed to wayland-sessions (created)"
+    else
+        log_warn "Could not find session directory"
+        log_info "Manually copy hyprland.desktop to /usr/share/wayland-sessions/"
+    fi
+}
+
 # Setup Firefox theme
 setup_firefox() {
     log_step "Setting up Firefox theme..."
@@ -398,6 +444,9 @@ main() {
     echo ""
     
     install_configs
+    echo ""
+    
+    install_session
     echo ""
     
     setup_firefox
