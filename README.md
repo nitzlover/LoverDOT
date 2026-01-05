@@ -1,30 +1,41 @@
 # LoverDOT
 
-Dotfiles для **Parrot OS Security Home** и **Arch Linux** с Hyprland.
+Carbon Black Hyprland dotfiles для **Arch Linux** и **Parrot OS**.
 
-## Быстрая установка
+## Arch Linux — Quick Start
 
-### Одна команда (рекомендуется)
-
-```bash
-git clone https://github.com/nitzlover/LoverDOT.git && cd LoverDOT && chmod +x install.sh && ./install.sh
-```
-
-### Или curl (без клонирования)
+Для свежего Arch после `archinstall` → `profile/type/desktop/hyprland`:
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/nitzlover/LoverDOT/main/install.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/nitzlover/LoverDOT/main/scripts/arch-setup.sh)
 ```
+
+Этот скрипт:
+- Установит yay (AUR helper)
+- Установит все необходимые пакеты
+- Настроит SDDM, waybar, wofi, swaync
+- Применит Carbon Black тему
+
+### Ручная установка
+
+```bash
+git clone https://github.com/nitzlover/LoverDOT.git
+cd LoverDOT
+chmod +x install.sh
+./install.sh
+```
+
+---
 
 ## Поддерживаемые дистрибутивы
 
-| Дистрибутив | Статус | Пакетный менеджер |
-|-------------|--------|-------------------|
-| **Parrot OS Security Home** | ✅ Полная поддержка | apt |
-| **Arch Linux** | ✅ Полная поддержка | pacman + AUR |
-| Debian/Ubuntu | ✅ Работает | apt |
-| Manjaro/EndeavourOS | ✅ Работает | pacman |
-| Fedora | ⚠️ Базовая | dnf |
+| Дистрибутив | Статус | Команда |
+|-------------|--------|---------|
+| **Arch Linux** (archinstall hyprland) | ✅ Полная | `scripts/arch-setup.sh` |
+| **Arch Linux** (чистый) | ✅ Полная | `install.sh` |
+| Manjaro/EndeavourOS | ✅ Работает | `install.sh` |
+| Parrot OS Security | ⚠️ Требует сборки | `scripts/build-hyprland-debian.sh` |
+| Debian/Ubuntu | ⚠️ Требует сборки | `scripts/build-hyprland-debian.sh` |
 
 ## Опции установки
 

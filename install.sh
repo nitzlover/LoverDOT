@@ -132,6 +132,30 @@ declare -A PACKAGES_DEBIAN=(
     [fonts]="fonts-jetbrains-mono"
 )
 
+# Arch Linux packages - comprehensive list for archinstall hyprland
+PACKAGES_ARCH_CORE=(
+    hyprland hyprpaper hypridle xdg-desktop-portal-hyprland
+    waybar wofi swaync
+    alacritty firefox thunar
+    polkit-gnome gnome-keyring
+)
+
+PACKAGES_ARCH_UTILS=(
+    grim slurp swappy wl-clipboard cliphist
+    brightnessctl playerctl
+    pavucontrol blueman network-manager-applet
+    file-roller imv mpv
+)
+
+PACKAGES_ARCH_FONTS=(
+    ttf-jetbrains-mono-nerd ttf-font-awesome
+    noto-fonts noto-fonts-emoji
+)
+
+PACKAGES_ARCH_THEME=(
+    qt5ct kvantum papirus-icon-theme
+)
+
 declare -A PACKAGES_ARCH=(
     [hyprland]="hyprland"
     [waybar]="waybar"
@@ -197,16 +221,35 @@ install_deps() {
             }
             ;;
         arch)
-            log_step "Installing packages: ${packages[*]}"
-            sudo pacman -Syu --noconfirm --needed "${packages[@]}"
+            log_step "Installing Arch packages..."
             
-            # Install AUR packages if yay available
+            # Use comprehensive package lists
+            local all_arch_pkgs=(
+                "${PACKAGES_ARCH_CORE[@]}"
+                "${PACKAGES_ARCH_UTILS[@]}"
+                "${PACKAGES_ARCH_FONTS[@]}"
+                "${PACKAGES_ARCH_THEME[@]}"
+            )
+            
+            sudo pacman -Syu --noconfirm --needed "${all_arch_pkgs[@]}" || {
+                log_warn "Some packages may not be available, trying individually..."
+                for pkg in "${all_arch_pkgs[@]}"; do
+                    sudo pacman -S --noconfirm --needed "$pkg" 2>/dev/null || true
+                done
+            }
+            
+            # Install AUR packages
+            local aur_pkgs=(hyprlock wlogout swww hyprpicker)
+            
             if command -v yay &> /dev/null; then
-                log_step "Installing AUR packages..."
-                yay -S --noconfirm --needed hyprpaper hypridle hyprlock || true
+                log_step "Installing AUR packages with yay..."
+                yay -S --noconfirm --needed "${aur_pkgs[@]}" || true
             elif command -v paru &> /dev/null; then
-                log_step "Installing AUR packages..."
-                paru -S --noconfirm --needed hyprpaper hypridle hyprlock || true
+                log_step "Installing AUR packages with paru..."
+                paru -S --noconfirm --needed "${aur_pkgs[@]}" || true
+            else
+                log_warn "No AUR helper found. Install yay for additional packages:"
+                log_info "  git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si"
             fi
             ;;
         fedora)
