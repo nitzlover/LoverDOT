@@ -1,6 +1,6 @@
 #!/bin/bash
 # LoverDOT - Universal Installer for Parrot OS / Arch Linux + Hyprland
-# Usage: curl -fsSL https://raw.githubusercontent.com/USER/LoverDOT/main/install.sh | bash
+# Usage: curl -fsSL https://raw.githubusercontent.com/nitzlover/LoverDOT/main/install.sh | bash
 # Or:    ./install.sh [--no-deps] [--no-backup]
 
 set -e

@@ -7,13 +7,13 @@ Dotfiles для **Parrot OS Security Home** и **Arch Linux** с Hyprland.
 ### Одна команда (рекомендуется)
 
 ```bash
-git clone https://github.com/USER/LoverDOT.git && cd LoverDOT && chmod +x install.sh && ./install.sh
+git clone https://github.com/nitzlover/LoverDOT.git && cd LoverDOT && chmod +x install.sh && ./install.sh
 ```
 
 ### Или curl (без клонирования)
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/USER/LoverDOT/main/install.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/nitzlover/LoverDOT/main/install.sh)
 ```
 
 ## Поддерживаемые дистрибутивы
